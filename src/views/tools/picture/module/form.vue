@@ -2,6 +2,7 @@
   <el-dialog :visible.sync="dialog" append-to-body width="600px" @close="doSubmit">
     <el-upload
       :on-preview="handlePictureCardPreview"
+      :before-upload="handleBeforeUpload"
       :before-remove="handleBeforeRemove"
       :on-success="handleSuccess"
       :on-error="handleError"
@@ -44,9 +45,34 @@ export default {
   },
   methods: {
     handleSuccess(response, file, fileList) {
+      console.log('response:', response)
       const uid = file.uid
       const id = response.id
       this.pictures.push({ uid, id })
+    },
+    handleBeforeUpload(file) {
+      console.log(file.type)
+      var isImage = false
+      if (file.type === 'image/jpeg' || file.type === 'image/gif' || file.type === 'image/png') {
+        isImage = true
+      }
+      const isLt1M = file.size / 1024 / 1024 < 1
+      // return true
+      if (!isImage) {
+        this.$notify({
+          title: '上传文件只能是图片格式!',
+          type: 'error',
+          duration: 2500
+        })
+      }
+      if (!isLt1M) {
+        this.$notify({
+          title: '上传文件大小不能超过 1MB!',
+          type: 'error',
+          duration: 2500
+        })
+      }
+      return isImage && isLt1M
     },
     handleBeforeRemove(file, fileList) {
       for (let i = 0; i < this.pictures.length; i++) {
@@ -69,12 +95,12 @@ export default {
       this.$parent.$parent.init()
     },
     // 监听上传失败
-    handleError(e, file, fileList) {
-      const msg = JSON.parse(e.message)
+    handleError(err, file, fileList) {
+      const msg = JSON.parse(err.message)
       this.$notify({
         title: msg.message,
         type: 'error',
-        duration: 2500
+        duration: 5000
       })
     }
   }
