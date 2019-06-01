@@ -9,7 +9,7 @@ import { filterAsyncRouter } from '@/store/modules/permission'
 
 NProgress.configure({ showSpinner: false })// NProgress Configuration
 
-const whiteList = ['/login']// no redirect whitelist
+const whiteList = ['/login', '/reg']// no redirect whitelist
 
 router.beforeEach((to, from, next) => {
   if (to.meta.title) {
@@ -17,6 +17,7 @@ router.beforeEach((to, from, next) => {
   }
   NProgress.start() // start progress bar
   if (getToken()) {
+    console.log('getToken')
     // 已登录且要跳转的页面是登录页
     if (to.path === '/login') {
       next({ path: '/' })
@@ -43,9 +44,12 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     /* has no token*/
+    console.log(to.path)
     if (whiteList.indexOf(to.path) !== -1) { // 在免登录白名单，直接进入
+      console.log('1')
       next()
     } else {
+      console.log('2')
       next(`/login?redirect=${to.path}`) // 否则全部重定向到登录页
       NProgress.done()
     }

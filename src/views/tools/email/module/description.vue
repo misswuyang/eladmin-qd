@@ -19,11 +19,11 @@
  account.setHost("smtp.sina.com");
  account.setPort("465");
  account.setAuth(true);
- account.setFrom("auaur@sina.com");
- account.setUser("eladmin");
+ account.setFrom("xpay@xpay.xin");
+ account.setUser("xpay");
  account.setPass("pass");
  # 倒数第二个参数：是否为http格式
- MailUtil.send(account, CollUtil.newArrayList("zhengjie@tom.com"), "测试", "邮件来自eladmin测试", true，file...);</pre>
+ MailUtil.send(account, CollUtil.newArrayList("xpay@tom.com"), "测试", "邮件来自xpay测试", true，file...);</pre>
     <blockquote class="my-blockquote">更多帮助</blockquote>
     <pre class="my-code">更多帮助请查看文档：<a style="color:#009688" href="http://hutool.mydoc.io/#text_319499" target="_black">hutool工具包</a></pre>
   </div>

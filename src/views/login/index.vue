@@ -1,9 +1,9 @@
 <template>
   <div class="login">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" label-position="left" label-width="0px" class="login-form">
-      <h3 class="title">el-admin 后台管理系统</h3>
+      <h3 class="title">Xpay 后台管理系统</h3>
       <el-form-item prop="username">
-        <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="账号">
+        <el-input v-model="loginForm.username" type="text" auto-complete="off" placeholder="账号/邮箱">
           <svg-icon slot="prefix" icon-class="user" class="el-input__icon" style="height: 39px;width: 13px;margin-left: 2px;" />
         </el-input>
       </el-form-item>
@@ -19,21 +19,24 @@
           <span v-else>登 录 中...</span>
         </el-button>
       </el-form-item>
-      <p class="login-tip">系统默认用户名：admin，密码：123456</p>
+      <p class="login-tip"><a @click="$refs.email.dialog = true">入驻系统</a></p>
     </el-form>
+    <regDialog ref="email" />
   </div>
 </template>
 
 <script>
 import Config from '@/config'
+import regDialog from './reg'
 import Cookies from 'js-cookie'
 export default {
-  name: 'Login',
+  name: 'Reg',
+  components: { regDialog },
   data() {
     return {
       loginForm: {
-        username: 'admin',
-        password: '123456',
+        username: '',
+        password: '',
         rememberMe: false
       },
       loginRules: {
@@ -126,7 +129,7 @@ export default {
   }
   .login-tip {
     font-size: 13px;
-    text-align: center;
-    color: #bfbfbf;
+    text-align: right;
+    color: #e52a2a;
   }
 </style>

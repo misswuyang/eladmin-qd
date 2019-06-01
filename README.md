@@ -1,6 +1,6 @@
-# eladmin-qt
+# xpay-qt
 
-eladmin 前端源码
+xpay 前端源码
 
 #### 项目源码
 

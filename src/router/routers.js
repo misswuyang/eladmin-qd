@@ -25,6 +25,11 @@ export const constantRouterMap = [
     component: () => import('@/views/login/index'),
     hidden: true
   },
+  { path: '/reg',
+    meta: { title: '注册', noCache: true },
+    component: () => import('@/views/reg/index'),
+    hidden: true
+  },
   {
     path: '/404',
     component: () => import('@/views/errorPage/404'),

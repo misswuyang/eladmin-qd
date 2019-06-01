@@ -17,3 +17,19 @@ export function getInfo() {
     method: 'get'
   })
 }
+
+export function sendCode(data) {
+  return request({
+    url: 'auth/reg/sendcode',
+    method: 'post',
+    data
+  })
+}
+
+export function reg(code, data) {
+  return request({
+    url: 'auth/reg/' + code,
+    method: 'post',
+    data
+  })
+}

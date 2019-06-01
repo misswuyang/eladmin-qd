@@ -1,4 +1,4 @@
-import { login, getInfo } from '@/api/login'
+import { login, reg, getInfo } from '@/api/login'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 
 const user = {
@@ -38,6 +38,19 @@ const user = {
           setUserInfo(res.user, commit)
           // 第一次加载菜单时用到， 具体见 src 目录下的 permission.js
           commit('SET_LOAD_MENUS', true)
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    // 注册
+    Reg({ commit }, userInfo) {
+      const username = userInfo.username
+      const password = userInfo.password
+      const email = userInfo.email
+      return new Promise((resolve, reject) => {
+        reg(username, password, email).then(res => {
           resolve()
         }).catch(error => {
           reject(error)
