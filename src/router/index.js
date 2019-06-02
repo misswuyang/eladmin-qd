@@ -17,7 +17,6 @@ router.beforeEach((to, from, next) => {
   }
   NProgress.start() // start progress bar
   if (getToken()) {
-    console.log('getToken')
     // 已登录且要跳转的页面是登录页
     if (to.path === '/login') {
       next({ path: '/' })
