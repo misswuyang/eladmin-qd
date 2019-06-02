@@ -20,6 +20,14 @@ import './router/index' // permission control
 Vue.use(mavonEditor)
 Vue.use(permission)
 Vue.use(ElementUI, { locale })
+
+const eventBus = {
+  install(Vue, options) {
+    Vue.prototype.$bus = new Vue()
+  }
+}
+Vue.use(eventBus)
+
 Vue.config.productionTip = false
 require('babel-polyfill')
 

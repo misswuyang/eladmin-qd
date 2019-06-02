@@ -139,11 +139,10 @@ export default {
     }
   },
   created() {
-    console.log('==created==')
     getPapConfig().then(res => {
-      console.log('==created res:', res)
       if (res !== undefined && res) {
         this.payConfigPic = res
+        this.sendMessage(this.payConfigPic)
       }
     }).catch(err => {
       console.log(err.response.data.message)
@@ -151,6 +150,9 @@ export default {
     // store.dispatch('getPapConfig').then((res) => {
     //   console.log('==created res:', res)
     // })
+  },
+  beforeDestroy() {
+    this.$bus.$off('messageKey')
   },
   methods: {
     handleSuccess(response, file, fileList) {
@@ -161,6 +163,11 @@ export default {
       })
       this.payConfigPic = response.data
       console.log('payConfigPic:', this.payConfigPic)
+      this.sendMessage(this.payConfigPic)
+    },
+    sendMessage(data) {
+      // console.log('==sendMessage==')
+      this.$bus.$emit('messageKey', data)
     },
     handleBeforeUpload(file) {
       console.log(file.type)
